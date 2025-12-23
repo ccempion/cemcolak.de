@@ -1523,3 +1523,37 @@ input:checked {
   opacity: 1;
   transform: translateX(-50%) translateY(-5px); /* Leichtes Hochschieben */
 }
+/* --------------------------------- */
+/* ----- Fixed Login Button Top Right ----- */
+/* Füge dies direkt am Ende deiner CSS-Datei ein, nach dem Skills/Tooltip-Block */
+
+.login-btn-topright {
+  position: fixed;
+  top: var(--gutter-small);   /* Abstand vom oberen Rand */
+  right: var(--gutter-small); /* Abstand vom rechten Rand */
+  z-index: 999;               /* Über allen anderen Elementen */
+  
+  font-size: var(--text-medium);
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--gutter-nano);
+  
+  background-color: var(--important); /* passt zu btn-cta */
+  color: var(--bg-color-primary);
+  border: none;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Hover-Effekt passend zu deinem Design */
+body.dark .login-btn-topright:hover,
+body.dark .login-btn-topright:focus {
+  box-shadow: #ffffff40 0 0 0 var(--gutter-nano);
+}
+
+body.light .login-btn-topright:hover,
+body.light .login-btn-topright:focus {
+  box-shadow: #07070733 0 0 0 var(--gutter-nano);
+}

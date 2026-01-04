@@ -412,21 +412,17 @@ main {
 /* --------------------------------- */
 
 .menu-btn-container {
-  position: fixed;
-  width: 100%;
-  top: var(--gutter-x-small);
-  left: 0;
-  z-index: 4;
-  /* Add these lines */
-  display: flex;
-  justify-content: flex-end; /* Pushes both buttons to the right */
-  gap: 10px;                 /* Adds space between the buttons */
-  padding-inline: 20px;      /* Keeps them from hitting the screen edge */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important; /* Forces it to the full viewport width */
+    display: flex !important;
+    justify-content: flex-end !important;
 }
 
 .menu-btn, .login-btn {
   display: inline-block;     /* Allows them to sit on the same line */
-  margin-inline-start: auto;    /* Remove the auto margin */
+  margin-inline-start: 0 ; /* Remove the auto margin */
+  margin: 0 10px 0 0 !important; /* Top, Right, Bottom, Left */   
   border: 1px solid var(--border-dark);
   inline-size: 132px;
   padding-block: var(--gutter-nano);
@@ -434,16 +430,18 @@ main {
   text-decoration: none;
   background-color: var(--bg-color-secondary);
   color: var(--important);
+    z-index: 9999;
   cursor: pointer;
 }
 
 .menu-btn,
+.login-btn,
 .nav-items a {
   font-stretch: 125%;
   font-weight: 900;
 }
 
-}
+
 /* --------------------------------- */
 /* ----- Navigation -----*/
 /* --------------------------------- */
@@ -455,7 +453,7 @@ main {
   background-color: #ff5e99;
   background-image: var(--gradient-brand);
   transition: 450ms var(--easing);
-  z-index: 3;
+  z-index: 999;
 }
 
 .nav-items {
@@ -1532,26 +1530,6 @@ input:checked {
 /* --------------------------------- */
 /* ----- Fixed Login Button Top Right ----- */
 /* Füge dies direkt am Ende deiner CSS-Datei ein, nach dem Skills/Tooltip-Block */
-
-.login-btn-topright {
-  position: fixed;
-  top: var(--gutter-small);   /* Abstand vom oberen Rand */
-  right: var(--gutter-small); /* Abstand vom rechten Rand */
-  z-index: 999;               /* Über allen anderen Elementen */
-  
-  font-size: var(--text-medium);
-  font-weight: 700;
-  padding: 12px 32px;
-  border-radius: 50px(var(--gutter-nano));  /* ovale Form */
-  
-  background-color: var(--important); /* passt zu btn-cta */
-  color: var(--bg-color-primary);
-  border: none;
-  cursor: pointer;
-  transition: 0.3s all ease-in-out;
-  text-decoration: none;
-  text-align: center;
-}
 
 /* Hover-Effekt passend zu deinem Design */
 body.dark .login-btn-topright:hover,

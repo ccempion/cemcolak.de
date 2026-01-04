@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertikal */
+  background-color: #000;  /* schwarzer Hintergrund */
+  color: #fff;             /* weiße Schrift standard */
+  font-family: Arial, sans-serif;
+}
+
+.login-box {
+  background: #222;        /* dunkle Box für Kontrast */
+  padding: 25px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2); /* leichter Glanz */
+}
+
+h2 {
+  text-align: center;
+  color: #fff;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+}
+
+input::placeholder {
+  color: #bbb; /* helle Platzhalterfarbe */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #000000;
+}
+
+a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

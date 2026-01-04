@@ -1541,8 +1541,8 @@ input:checked {
   
   font-size: var(--text-medium);
   font-weight: 700;
-  padding: 12px 28px;
-  border-radius: var(--gutter-nano);
+  padding: 12px 32px;
+  border-radius: 50px(var(--gutter-nano));  /* ovale Form */
   
   background-color: var(--important); /* passt zu btn-cta */
   color: var(--bg-color-primary);

@@ -417,11 +417,16 @@ main {
   top: var(--gutter-x-small);
   left: 0;
   z-index: 4;
+  /* Add these lines */
+  display: flex;
+  justify-content: flex-end; /* Pushes both buttons to the right */
+  gap: 10px;                 /* Adds space between the buttons */
+  padding-inline: 20px;      /* Keeps them from hitting the screen edge */
 }
 
-.menu-btn {
-  display: block;
-  margin-inline-start: auto;
+.menu-btn, .login-btn {
+  display: inline-block;     /* Allows them to sit on the same line */
+  margin-inline-start: auto;    /* Remove the auto margin */
   border: 1px solid var(--border-dark);
   inline-size: 132px;
   padding-block: var(--gutter-nano);
@@ -438,6 +443,7 @@ main {
   font-weight: 900;
 }
 
+}
 /* --------------------------------- */
 /* ----- Navigation -----*/
 /* --------------------------------- */

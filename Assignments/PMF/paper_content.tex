@@ -1,0 +1,95 @@
+\documentclass[runningheads]{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Partially Ordered Stochastic Conformance Checking: A Review}
+\titlerunning{Partially Ordered Stochastic Conformance Checking}
+
+\author{Cem Colak}
+\authorrunning{Cem Colak}
+\institute{RWTH Aachen University, Aachen, Germany\\
+\email{cem.colak@rwth-aachen.de}}
+
+\maketitle
+
+\begin{abstract}
+Earth Movers' Stochastic Conformance (EMSC) has so far been defined over totally ordered traces, where uncertain event order, redundant probability on interleavings, and unbounded loop unfolding remain as weaknesses. Leemans et al.\ generalise EMSC to stochastic partially ordered (PO) languages, in which one PO trace stands for its entire family of linearisations. A confusion-free labelled stochastic Petri net induces a stochastic PO language via a play-out, equal timestamps in the log leave events incomparable, and a four-way distance lattice combined with a sink for truncated probability mass yields provable bounds on the true EMSC value. This report explains the construction, walks through a loan-application example, and discusses strengths and weaknesses.
+\end{abstract}
+
+\keywords{Stochastic process mining \and Conformance checking \and Partial orders \and Earth movers' distance \and Labelled stochastic Petri nets}
+
+\section{The Technique}
+
+Leemans et al.~\cite{leemans2025po} generalise Earth Movers' Stochastic Conformance (EMSC) from totally ordered to partially ordered traces. The motivation is semantic. When two activities execute concurrently, the order in which they are recorded carries no process information, so any conformance verdict that depends on it is measuring an artefact of the recorder rather than a property of the process. The technique therefore re-bases conformance checking on a different semantic object---the \emph{stochastic partially ordered (PO) language}---and lifts EMSC to that level. Three concrete limitations of standard EMSC are addressed simultaneously: \textbf{P1} uncertain event order in logs (events sharing a timestamp), \textbf{P2} redundant assignment of probability to interleavings of concurrent behaviour, and \textbf{P3} the absence of any formal guarantee on values returned for models containing loops.
+
+\subsection{Semantic Objects}
+
+A PO trace is a triple $\rho = (E, \prec, l)$ with finite event set $E$, strict partial order ${\prec} \subseteq E \times E$, and labelling $l\colon E \to \mathcal{A}$. Its set of linearisations $\mathcal{L}(\rho) \subseteq \mathcal{A}^{*}$ collects every total order consistent with $\prec$, so one PO trace stands for a family of classical traces. A \emph{stochastic PO language} is a map $L\colon \mathcal{P} \to [0,1]$ with $\sum_{\rho} L(\rho) = 1$, generalising classical stochastic languages (where every $\prec$ is total). PO traces admit two interpretations: \emph{certain}, where the executor freely picks any linearisation (used for models, addressing \textbf{P2}), and \emph{uncertain}, where one linearisation was realised but cannot be recovered from the data (used for logs with imprecise timestamps, addressing \textbf{P1}).
+
+\subsection{Embedding Models and Logs into the Semantics}
+
+The model side is a labelled stochastic Petri net (LSPN) $PN = (P, T, F, \Sigma, \lambda, M_{0}, w)$ with weight function $w\colon T \to \mathbb{R}^{+}$. The authors require \emph{confusion-freeness}: any two transitions $t_{1}, t_{2}$ with $\bullet t_{1} \cap \bullet t_{2} \neq \emptyset$ and $\bullet t_{1} \neq \bullet t_{2}$ are never jointly enabled. Under this property the probability of a run depends only on transitions involved in choices; weights on concurrently firing transitions cancel out,
+\begin{equation}
+PN(r) \;=\; \prod_{t' \in T'} \frac{w(\beta(t'))}{\sum_{t \in T \,\mid\, \bullet t \,=\, \bullet \beta(t')} w(t)},
+\end{equation}
+so the order in which concurrent transitions are interleaved leaves $PN(r)$ unchanged. Algorithm~1 performs a play-out, firing maximal sets of pairwise-independent enabled transitions in parallel at each step. Each run defines a PO trace by removing silent transitions while keeping the partial order over the remaining events; summing $PN(r)$ over runs sharing a PO trace yields $L_{M}$. Because loops admit infinitely many runs, the play-out is \emph{truncated} after $q$ most-likely plus $r$ random runs, and the residual mass $L_{M}(\bot)$ is treated as an extra symbolic PO trace. On the log side, each case yields one PO trace by reading $\prec$ off the timestamps---events sharing a timestamp stay incomparable---and empirical frequencies are normalised to $L_{L}$ under the uncertain interpretation; reliable timestamps allow the certain interpretation instead.
+
+\subsection{Distance, EMSC, and Bounds}
+
+A trace--trace distance $\delta$ (the paper uses normalised Levenshtein) is lifted to a PO-trace distance $\Delta$. Because each side may be certain or uncertain, four variants arise: $\Delta^{cc}_{\delta}$ (both certain, minimum over pairs of linearisations), $\Delta^{uu\text{-}\mathrm{best}}/\Delta^{uu\text{-}\mathrm{worst}}$ (both uncertain), and mixed minimax $\Delta^{uc\text{-}\mathrm{best}}/\Delta^{uc\text{-}\mathrm{worst}}$. EMSC is then the standard optimal-transport problem
+\begin{equation}
+\mathrm{emsc}_{\Delta}(L, L') \;=\; 1 \;-\; \min_{R} \sum_{\rho, \rho'} R(\rho, \rho')\,\Delta(\rho, \rho'),
+\end{equation}
+subject to the marginal constraints $L(\rho) = \sum_{\rho'} R(\rho, \rho')$ and $L'(\rho') = \sum_{\rho} R(\rho, \rho')$, but now indexed over PO traces. $\Delta^{cc}$ is computed by an $A^{*}$ search over a four-move alignment (synchronous, substitution, top, bottom), with an admissible heuristic equal to the multiset difference of yet-unaligned labels. When $L_{M}$ is truncated and/or $L_{L}$ is uncertain, the true EMSC is bounded: absorbing $L_{M}(\bot)$ into the symbolic trace $\bot$ with cost $0$ (lower bound) or $1$ (upper bound) and selecting the appropriate $\Delta$-variant yields an interval $[\mathrm{emsc}_{\uparrow}, \mathrm{emsc}_{\downarrow}]$ that provably contains the true value (Lemmas~4 and~5). The gap is at most $1 - \sum_{\rho \in \tilde{L}_{M}} L_{M}(\rho)$ and shrinks monotonically as $q$ and $r$ grow.
+
+\section{An Example Exercising P1, P2, and P3}
+
+Figure~\ref{fig:loan_net} shows a confusion-free LSPN over the activities $\{ap, vi, vc, in, apr, rej, rev\}$ (apply, verify income, verify credit, interview, approve, reject, revise), discovered from the accompanying $100$-case log. After $ap$ fires, two places are marked and $vi, vc$ run concurrently, synchronising on a place feeding $in$. The interview is followed by a three-way XOR with weights $w(apr) = 6$, $w(rej) = 3$, $w(rev) = 1$; the transition $rev$ re-marks the post-$ap$ places, creating a loop. The two parallel transitions carry weights $w(vi) = w(vc) = 5$, but by confusion-freeness these never appear in any choice denominator and so do not affect $PN(r)$ for any run. The net is sound, safe, and confusion-free.
+
+\begin{figure}[t]
+  \centering
+  \IfFileExists{loan_net.pdf}{%
+    \includegraphics[width=0.7\textwidth]{loan_net}%
+  }{%
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{1.2em}\textit{Placeholder: insert \texttt{loan\_net.pdf}.}\vspace{1.2em}}}%
+  }
+  \caption{LSPN discovered from \texttt{loan\_log.csv}. XOR weights at $in$ approximate empirical frequencies $67/111$, $33/111$, $11/111$ of $apr, rej, rev$.}
+  \label{fig:loan_net}
+\end{figure}
+
+A single iteration ending in approval is captured by the PO trace $\rho_{1}$ with events $\{e_{ap}, e_{vi}, e_{vc}, e_{in}, e_{apr}\}$ where $e_{ap}$ precedes both $e_{vi}, e_{vc}$, both precede $e_{in}$, and $e_{in}$ precedes $e_{apr}$; $e_{vi}, e_{vc}$ remain incomparable. Its probability is $\tfrac{6}{6+3+1} = 0.6$, and the $|\mathcal{L}(\rho_{1})| = 2$ linearisations are aggregated into this single PO trace---exactly the redundancy P2 eliminates. A log of $100$ cases in which $90$ record $vi, vc$ at identical timestamps and $10$ in some strict order becomes, under the uncertain interpretation, $100$ copies of $\rho_{1}$ (P1), while under the certain interpretation it splits into PO traces with distinct $\prec$. The loop contributes infinitely many runs, but truncating after $q = 1000$ covers $1 - 0.1^{10} \approx 1$ of the mass, so $L_{M}(\bot) < 10^{-10}$ and the bounds collapse to a four-decimal interval---the guarantee P3 provides.
+
+\section{Advantages}
+
+\noindent\textbf{Semantic alignment.} By moving conformance to stochastic PO languages, the verdict measures process structure rather than recording artefacts. The toy example of the paper, where classical EMSC yields $0.689$ and PO-EMSC yields $0.955$, is symptomatic: $45\%$ of the model's probability mass was forced onto two interleavings of one concurrent pair under the totally ordered view, neither of which the log matched exactly; in the PO view the mass sits on a single concurrent PO trace that both interleavings of the log satisfy.
+
+\noindent\textbf{Statistical economy.} A single PO trace represents up to $|\mathcal{L}(\rho)|$ total orders, which can be factorial in the width of $\prec$. The applicability study reports $2000$ PO traces that collectively represent up to $2.1 \cdot 10^{11}$ classical traces; the same coverage with classical EMSC would require sampling on the order of $10^{20}$ traces. The bottleneck shifts from sampling to distance computation.
+
+\noindent\textbf{Formal guarantees for loops and uncertainty.} The bound lemmas turn a previously heuristic truncation into a verifiable computation: the user knows the true value lies in $[\mathrm{emsc}_{\uparrow}, \mathrm{emsc}_{\downarrow}]$, and can spend more compute on $q$ and $r$ to tighten it. The same lemmas treat log uncertainty (logs with many equal timestamps such as Sepsis at $30\%$) symmetrically, returning an honest interval rather than a single number that depends on an arbitrary tie-breaking rule.
+
+\noindent\textbf{Decoupling concurrency weights from choice weights.} The confusion-free assumption proves that weights on transitions outside any choice do not affect run probabilities, simplifying modelling and matching the practice of translating standard BPMN with exclusive, parallel, and block-structured inclusive gateways into Petri nets.
+
+\section{Disadvantages}
+
+\noindent\textbf{Worst-case factorial in concurrency width.} Counting $|\mathcal{L}(\rho)|$ and computing $\Delta^{cc}$ are factorial in the number of pairwise-concurrent events. The implementation defends itself by returning a baseline of $0$ whenever $|\mathcal{L}(\rho)| > 10^{5}$, which loosens the bound. In logs with wide concurrency---exactly those where the PO perspective adds the most value---this fallback weakens the very guarantee that motivates the method.
+
+\noindent\textbf{Slow convergence of $\mathrm{emsc\text{-}uc}$.} The Sepsis experiment leaves a $0.049$ gap with $q = r = 1000$, and the BPIC18-4 case shows bound widths up to $0.824$ even after $10^{6}$ truncated PO traces. The paper itself flags $\Delta^{uc\text{-}\mathrm{worst}}$ as future work. On the very logs where the uncertain interpretation is needed, the technique often returns an interval too wide to discriminate between competing models.
+
+\noindent\textbf{Unverified structural assumptions.} The implementation assumes the input LSPN is confusion-free, sound, and safe, but does not verify these properties. A user supplying a model violating one of them receives a silently incorrect answer instead of an error, which is a deployment hazard rather than a theoretical limitation.
+
+\noindent\textbf{Choice-blindness to concurrency dynamics.} $\Delta^{cc}$ rewards any linearisation in the model's PO trace and ignores the recorded order---correct when concurrent events are truly independent, wrong when the order reflects a meaningful but un-modelled dependency, and indistinguishable without external information. Confusion-freeness additionally excludes cancellation and inhibitor arcs.
+
+{\small
+\begin{thebibliography}{9}
+\bibitem{leemans2025po}
+Leemans, S.J.J., Brockhoff, T., van der Aalst, W.M.P., Polyvyanyy, A.: Partially ordered stochastic conformance checking. Knowledge and Information Systems \textbf{67}, 2291--2319 (2025)
+\end{thebibliography}
+}
+\include{comparison.tex}
+\end{document}

@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1778834283.59449 "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" "paper_content.pdf" "paper_content" 1778834284.19102 2
-  "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" 1778834276.80956 9206 c66889a69a40c521eb638ad378e6d879 ""
+["pdflatex"] 1779291405.60026 "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" "paper_content.pdf" "paper_content" 1779291406.34942 0
+  "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" 1779291404.79625 9198 966c14ee4648ab8391b26f3213822cb3 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -70,8 +70,8 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762501387 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762501305 3345741 11c24886f3ddd1a9b97ad1a1ef8d7eb4 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "paper_content.aux" 1778834284.11008 941 d28d99d122b0609fc1ed22b0bc4c3ae8 "pdflatex"
-  "paper_content.tex" 1778834276.80956 9206 c66889a69a40c521eb638ad378e6d879 ""
+  "paper_content.aux" 1779291406.22959 941 d28d99d122b0609fc1ed22b0bc4c3ae8 "pdflatex"
+  "paper_content.tex" 1779291404.79625 9198 966c14ee4648ab8391b26f3213822cb3 ""
   (generated)
   "paper_content.aux"
   "paper_content.log"

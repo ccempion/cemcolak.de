@@ -1,0 +1,16 @@
+\section{An Example Exercising P1, P2, and P3}
+
+To illustrate the key idea of the semantics introduced in the paper, consider the event log in \ref{loan_net}.
+\begin{figure}[t]
+  \centering
+  \IfFileExists{loan_net.pdf}{%
+    \includegraphics[width=0.7\textwidth]{loan_net}%
+  }{%
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{1.2em}\textit{Placeholder: insert \texttt{loan\_net.pdf}.}\vspace{1.2em}}}%
+  }
+  \caption{LSPN discovered from \texttt{loan\_log.csv}. XOR weights at $in$ approximate empirical frequencies $67/111$, $33/111$, $11/111$ of $apr, rej, rev$.}
+  \label{fig:loan_net}
+\end{figure}
+
+A single iteration ending in approval is captured by the PO trace $\rho_{1}$ with events $\{e_{ap}, e_{vi}, e_{vc}, e_{in}, e_{apr}\}$ where $e_{ap}$ precedes both $e_{vi}, e_{vc}$, both precede $e_{in}$, and $e_{in}$ precedes $e_{apr}$; $e_{vi}, e_{vc}$ remain incomparable. Its probability is $\tfrac{6}{6+3+1} = 0.6$, and the $|\mathcal{L}(\rho_{1})| = 2$ linearisations are aggregated into this single PO trace---exactly the redundancy P2 eliminates. A log of $100$ cases in which $90$ record $vi, vc$ at identical timestamps and $10$ in some strict order becomes, under the uncertain interpretation, $100$ copies of $\rho_{1}$ (P1), while under the certain interpretation it splits into PO traces with distinct $\prec$. The loop contributes infinitely many runs, but truncating after $q = 1000$ covers $1 - 0.1^{10} \approx 1$ of the mass, so $L_{M}(\bot) < 10^{-10}$ and the bounds collapse to a four-decimal interval---the guarantee P3 provides.
+

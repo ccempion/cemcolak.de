@@ -1,3 +1,66 @@
-Position the work with respect to (at
-least) two other papers of the seminar
-I LNCS format
+\section{Positioning and Comparison}
+
+Among recent stochastic conformance checking (SCC) work, the two approaches
+closest to the reviewed paper~\cite{poemsc}---sharing the (S)LPN/GSPN model
+formalism and the Earth Movers' (EMSC) lineage---are \emph{abstract-and-compare}
+(Goulart Rocha, Leemans, and van der Aalst, 2025)~\cite{abscompare} and
+\emph{Enjoy the Silence} (Leemans, Maggi, and Montali, 2024)~\cite{silence}.
+Table~\ref{tab:cmp}
+contrasts the three along input, output, the problem solved, semantics, and
+underlying assumptions.
+
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3.5pt}
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{@{}p{2cm}p{3cm}p{3cm}p{3cm}@{}}
+\hline
+ & \textbf{This paper (PO-EMSC)} & \textbf{Abstract-and-compare} & \textbf{Enjoy the Silence} \\
+\hline
+\textbf{Problems solved} &
+Concurrency redundancy (P2), timestamp uncertainty (P1), loop guarantees (P3) &
+Robustness to partial mismatch; broad model classes; analytic (no sampling) &
+Exact trace probability under silent transitions, repeated labels, and loops \\
+\textbf{Input} &
+LSPN + \emph{timestamped} log &
+SLPN + log &
+GSPN/LSP \emph{with silent transitions} (+ log for SCC) \\
+\textbf{Assumptions} &
+Confusion-freeness, soundness, safeness; usable timestamps &
+Boundedness, livelock-freeness; choice of subtrace order \(k\) &
+Boundedness; finite-trace semantics; timed/immediate transitions homogeneous \\
+\textbf{Output} &
+EMSC value, or provable interval \([\mathrm{emsc}_{\uparrow},\mathrm{emsc}_{\downarrow}]\) &
+Derived SCC measures \(m^{k}\) + conformance diagnostics &
+Analytic trace / outcome / specification probabilities feeding EMSC-style SCC(uEMSC) \\
+
+\textbf{Semantics} &
+Stochastic \emph{partially ordered} language (certain / uncertain); optimal transport over PO traces &
+Stochastic language of expected subtrace (\(k\)-gram) frequencies; then any existing SCC measure &
+Finite-trace stochastic language via an absorbing Markov chain; totally ordered, order-blind \\
+\hline
+\end{tabular}
+\caption{The reviewed PO-EMSC technique against two other techniques}
+\label{tab:cmp}
+\end{table}
+
+\noindent All three keep the (S)LPN/GSPN backbone and target SCC, but differ in
+\emph{what} they compare. The reviewed paper lifts the comparison to partial
+orders, attacking the \emph{order} dimension---concurrency redundancy and
+timestamp uncertainty---via optimal transport over PO traces; abstract-and-compare
+projects both log and model onto subtrace-frequency statistics and then applies
+any existing measure, buying partial-mismatch robustness and model-class
+breadth; Enjoy the Silence keeps total orders but, via an absorbing Markov
+chain, computes their probabilities exactly, dissolving the silent-transition
+and loop/infinite-path mass that the other two remove during play-out or only
+approximate. The contrast is the greatest on loops: PO-EMSC truncates the play-out
+and returns a provable interval, Enjoy the Silence needs no truncation (but
+ignores concurrency), and abstract-and-compare avoids enumeration in closed form
+for livelock-free nets. PO-EMSC's structural requirements are also stronger
+and, unlike the others, left unverified, and it alone consumes log
+\emph{timestamps} rather than control flow. The approaches are therefore
+complementary: Enjoy the Silence's analytic probabilities could replace the
+truncated play-out to dissolve P3's residual mass, while abstract-and-compare's
+abstraction is an orthogonal robustness lever that the exact-match PO distance
+lacks.

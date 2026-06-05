@@ -1,0 +1,58 @@
+\documentclass{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{todonotes}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=red]{hyperref}
+\begin{document}
+
+\title{A Review of ``Partially Ordered Stochastic Conformance Checking'': Referee Report}
+\titlerunning{Referee Report on a PO-SCC Review}
+
+
+\maketitle
+
+% This document is a review of the review written by Frederic-Leon Culmsee
+% (draft_colleague.md) of Leemans et al., "Partially Ordered Stochastic
+% Conformance Checking". Bullets carry a polarity marker:
+%   \textbf{$+$} = strength,  \textbf{$-$} = issue / suggestion.
+% Each bullet is a seed to be expanded into full prose later.
+
+\section{Overall View}
+
+The report strongly opens with an example which provides the reader with an immediate big-picture and frames the rest of the report with the underlying idea. This is opposed to my approach, where I focused on the theoretical underlying semantics before stating a practical example. Throughout the whole report, the formal semantics of the paper were rather kept in the background while the underlying ideas were foregrounded, which keeps the review readable without losing the scientific value of the reviewed paper. Regarding the coverage, there are no missing details: The PO-trace settings, the two-layer distance measure and the consideration of loops through truncation/bounds. Nonetheless, the example was always referred to, which helps the reader to frame the theoretical aspects into an application. The writing style is clear and concise, well-balanced between technical details and high-level ideas. It gives the impression that Mr. Culmsee has a deep understanding of the paper, especially through prioritizing the ideas and only including technical details in case of necessity.
+
+A formal weakness was that the notion of \emph{partial orders} is used before the reader is told why it is needed, which is the single most impactful fix for the whole review. A smaller detail, which is not mentioned, is a statement about how the probability of PO-traces is formed. It may be implicit, but specifically in introducing new semantics, it would be helpful to consider its formation.
+\textbf{ Overall Verdict:} A strong, well-structured, and faithful review of the paper; the ideas are conveyed clearly and the key strengths and weaknesses of the technique are captured. \emph{Recommendation: do minor revisions}, the revisions being primarily the motivation-ordering and the small clarification noted above.
+
+In the following sections, I will evaluate the review section-wise, such that Mr. Culmsee receives detailed feedback for his sections.
+
+\section{Section-by-Section Evaluation}
+
+\subsection{Scenario}
+
+\emph{Partial orders}, as mentioned earlier, is invoked to motivate the example, without first stating the idea behind partially ordered conformance checking. For a reader without prior knowledge about the new semantical perspective, this could lead to initial confusion by raising question marks right at the beginning. My suggestion is to motivate the problem and only introduce partial orders as the tool that resolves the discrepancy. Nonetheless, the choice of a single Petri net which carries the two key challenges is an expressive \& economical choice for demonstration.
+
+\subsection{Technique: Setting}
+
+Here, the partial orders are again referred to before the motivating idea has been explained, hence the same up-front motivation fix mentioned earlier would fix it. The properties required by the technique are summarised well and at the right level of detail. Especially mentioning, why they matter, makes the setting reasonable for the reader. Although some of these properties were clear to readers who have domain knowledge of process mining and/or petri nets, it helps to make the formal setting within the review self-sufficient.  Furthermore, the last sentence of the first paragraph states the model is an LSPN, whereas Figure 1 looks like a standard (non-stochastic) Petri net. My suggestion would be to either make the stochastic nature of the net visible by transition execution counts/weights, or add a sentence noting that the net \emph{can be read} as an LSPN once enriched with stochastic information. The statement ``probabilities are assigned directly to PO-traces'' is correct but terse. Noting briefly that a PO-trace's probability is the \emph{sum} of the probabilities of the total-order traces (linearizations) it captures, would connect it back to the run-level probabilities and make the semantics more tangible.
+
+\subsection{Technique: Partial-Order Traces and Their Linearizations}
+
+In this section, the idea of PO-traces is well summarized with the information needed to grasp the idea. Referring to the example is used effectively to show how one PO-trace stands for multiple total orders, which makes the abstraction tangible. 
+
+\subsection{Technique: Two-Layer Distance Calculation}
+
+The two-layer distance calculation is well explained, with the Levenshtein distance and its connection to alignment moves being a particularly useful intuition. The EMSC-CC vs.\ EMSC-UC distinction is also well presented, with the best-/worst-case bounds which arise from the infinite behavior of the model, being the crux of the technique. 
+
+\subsection{Advantages \& Disadvantages}
+
+Overall, the section is well simplified and addresses the key points without overloading the reader. The advantages and disadvantages are well covered with the most important points and were narrowed down to obvious bottlenecks of the technique, which makes them easily accessible.
+
+\subsection{Positioning}
+
+The papers for the three-way comparison are well chosen since I think that those papers were the most appropriate to compare with. The section is easy to navigate, especially through answering the question of what each method preserves most strongly. Furthermore, Mr. Culmsee stated in which case either alternative is preferred, rather than arguing that the reviewed method dominates. My suggestion: I would enrich the comparison with some more technical details about the assumptions and results of each method. This would allow the reader to distinguish the applicability of each method. These details would help the reader to differentiate the utility better than he already did. 1-2 sentences for each compared method may be sufficient to fulfill this suggestion.
+
+\end{document}

@@ -1,16 +1,65 @@
 \section{An Example Exercising P1, P2, and P3}
 
-To illustrate the key idea of the semantics introduced in the paper, consider the event log in \ref{loan_net}.
-\begin{figure}[t]
-  \centering
-  \IfFileExists{loan_net.pdf}{%
-    \includegraphics[width=0.7\textwidth]{loan_net}%
-  }{%
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{1.2em}\textit{Placeholder: insert \texttt{loan\_net.pdf}.}\vspace{1.2em}}}%
-  }
-  \caption{LSPN discovered from \texttt{loan\_log.csv}. XOR weights at $in$ approximate empirical frequencies $67/111$, $33/111$, $11/111$ of $apr, rej, rev$.}
-  \label{fig:loan_net}
+The labelled stochastic Petri net in Figure~\ref{fig:petri_net_log} exercises all
+three problems at once: \emph{Verify Credit} (VC) and \emph{Verify Income} (VI)
+are concurrent (\textbf{P2}), the \emph{Revise} (Rv) loop admits runs of unbounded
+length (\textbf{P3}), and in the log the two verifications share a timestamp, so
+their order is uncertain (\textbf{P1}). The net is sound, safe, and
+confusion-free, as the technique requires.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{../PMF/pics/log_petri_net.png}
+    \caption{A perfectly fitting Petri net with the underlying log.}
+    \label{fig:petri_net_log}
 \end{figure}
 
-A single iteration ending in approval is captured by the PO trace $\rho_{1}$ with events $\{e_{ap}, e_{vi}, e_{vc}, e_{in}, e_{apr}\}$ where $e_{ap}$ precedes both $e_{vi}, e_{vc}$, both precede $e_{in}$, and $e_{in}$ precedes $e_{apr}$; $e_{vi}, e_{vc}$ remain incomparable. Its probability is $\tfrac{6}{6+3+1} = 0.6$, and the $|\mathcal{L}(\rho_{1})| = 2$ linearisations are aggregated into this single PO trace---exactly the redundancy P2 eliminates. A log of $100$ cases in which $90$ record $vi, vc$ at identical timestamps and $10$ in some strict order becomes, under the uncertain interpretation, $100$ copies of $\rho_{1}$ (P1), while under the certain interpretation it splits into PO traces with distinct $\prec$. The loop contributes infinitely many runs, but truncating after $q = 1000$ covers $1 - 0.1^{10} \approx 1$ of the mass, so $L_{M}(\bot) < 10^{-10}$ and the bounds collapse to a four-decimal interval---the guarantee P3 provides.
+The model's stochastic PO language $L_M$ is discovered from the original log
+$L_1$, so it matches $L_1$ by construction. We compare it against $L_1$ and two
+further logs over the \emph{same nine variants} but with different frequency
+distributions: a variation log $L_2$ and a strongly loop-biased log $L_3$
+(Table~\ref{tab:logs}). Under the concurrency of VC and VI the two interleavings
+are linearisations of one PO trace, so the nine variants collapse into the five
+PO traces $\rho_1,\dots,\rho_5$, on which $L_1$ places mass $(60,30,6,3,1)$,
+$L_2$ places $(55,20,11,10,4)$, and $L_3$ places $(4,30,58,3,5)$. While $L_2$
+mildly shifts mass from the short paths toward the loop, $L_3$ concentrates it
+almost entirely on the looping trace $\rho_3$.
 
+\begin{table}[h]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l c r r r}
+\hline
+\textbf{Trace variant} & \textbf{PO trace} & $\mathbf{L_1}$ & $\mathbf{L_2}$ & $\mathbf{L_3}$ \\
+\hline
+$\langle \text{A}, \text{VC}, \text{VI}, \text{I}, \text{Ap}\rangle$ & $\rho_1$ & 30 & 15 & 1 \\
+$\langle \text{A}, \text{VI}, \text{VC}, \text{I}, \text{Ap}\rangle$ & $\rho_1$ & 30 & 40 & 3 \\
+$\langle \text{A}, \text{VC}, \text{VI}, \text{I}, \text{R}\rangle$ & $\rho_2$ & 16 & 10 & 1 \\
+$\langle \text{A}, \text{VI}, \text{VC}, \text{I}, \text{R}\rangle$ & $\rho_2$ & 14 & 10 & 29 \\
+$\langle \text{A}, \text{VC}, \text{VI}, \text{I}, \text{Rv}, \text{VC}, \text{VI}, \text{I}, \text{Ap}\rangle$ & $\rho_3$ & 3 & 6 & 1 \\
+$\langle \text{A}, \text{VI}, \text{VC}, \text{I}, \text{Rv}, \text{VI}, \text{VC}, \text{I}, \text{Ap}\rangle$ & $\rho_3$ & 3 & 5 & 57 \\
+$\langle \text{A}, \text{VC}, \text{VI}, \text{I}, \text{Rv}, \text{VC}, \text{VI}, \text{I}, \text{R}\rangle$ & $\rho_4$ & 2 & 5 & 2 \\
+$\langle \text{A}, \text{VI}, \text{VC}, \text{I}, \text{Rv}, \text{VI}, \text{VC}, \text{I}, \text{R}\rangle$ & $\rho_4$ & 1 & 5 & 1 \\
+$\langle \text{A}, \text{VI}, \text{VC}, \text{I}, \text{Rv}, \text{VI}, \text{VC}, \text{I}, \text{Rv}, \text{VI}, \text{VC}, \text{I}, \text{Ap}\rangle$ & $\rho_5$ & 1 & 4 & 5 \\
+\hline
+\textbf{Total} & & \textbf{100} & \textbf{100} & \textbf{100} \\
+\hline
+\end{tabular}
+\caption{Variant frequencies of the original log $L_1$, the variation log $L_2$,
+and the loop-biased log $L_3$ (each $100$ traces). A = Apply, VC = Verify Credit,
+VI = Verify Income, I = Interview, Rv = Revise, Ap = Approve, R = Reject.}
+\label{tab:logs}
+\end{table}
+
+Using the \href{https://leemans.ch/ebi/index.php}{Ebi} CLI, I sampled the model's
+partially ordered traces (\texttt{ebi sample partially-ordered-traces}, $1000$
+runs) and computed EMSC against each log. $L_1$ scored $0.996$; the missing
+$0.004$ is the residual mass $L_M(\bot)$ left by truncating the loop
+(\textbf{P3}). $L_2$ scored $0.926$ and $L_3$ only $0.744$, since the transport
+must move their loop-heavy mass onto the short traces $L_M$ favours: the more a
+log departs from $L_M$, the more mass travels at a positive PO-trace distance.
+The ordering $\mathrm{emsc}(L_M, L_3) = 0.744 < 0.926 = \mathrm{emsc}(L_M, L_2) <
+0.996 = \mathrm{emsc}(L_M, L_1)$ confirms that $L_3$ is stochastically furthest
+from the model.

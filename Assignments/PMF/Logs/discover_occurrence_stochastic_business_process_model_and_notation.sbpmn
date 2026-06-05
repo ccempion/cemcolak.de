@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="Ebi-bpmn" xmlns:sbpmn="https://www.ebitools.org/sbpmn/20260305">
+	<process id="process_1" isExecutable="true">
+		<startEvent id="startevent_2">
+			<outgoing>sequenceflow_6</outgoing>
+		</startEvent>
+		<endEvent id="startevent_3">
+			<incoming>sequenceflow_47</incoming>
+		</endEvent>
+		<exclusiveGateway id="exclusivegateway_4">
+			<incoming>sequenceflow_7</incoming>
+			<outgoing>sequenceflow_12</outgoing>
+		</exclusiveGateway>
+		<task id="task_5" name="Apply">
+			<incoming>sequenceflow_6</incoming>
+			<outgoing>sequenceflow_7</outgoing>
+		</task>
+		<exclusiveGateway id="exclusivegateway_8">
+			<incoming>sequenceflow_35</incoming>
+			<outgoing>sequenceflow_39</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_9">
+			<incoming>sequenceflow_13</incoming>
+			<outgoing>sequenceflow_34</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_10">
+			<incoming>sequenceflow_12</incoming>
+			<incoming>sequenceflow_32</incoming>
+			<outgoing>sequenceflow_17</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_11">
+			<incoming>sequenceflow_29</incoming>
+			<outgoing>sequenceflow_13</outgoing>
+			<outgoing>sequenceflow_31</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_14">
+			<incoming>sequenceflow_18</incoming>
+			<outgoing>sequenceflow_27</outgoing>
+		</exclusiveGateway>
+		<parallelGateway id="parallelgateway_15">
+			<incoming>sequenceflow_17</incoming>
+			<outgoing>sequenceflow_20</outgoing>
+			<outgoing>sequenceflow_23</outgoing>
+		</parallelGateway>
+		<parallelGateway id="parallelgateway_16">
+			<incoming>sequenceflow_21</incoming>
+			<incoming>sequenceflow_24</incoming>
+			<outgoing>sequenceflow_18</outgoing>
+		</parallelGateway>
+		<task id="task_19" name="Verify Credit">
+			<incoming>sequenceflow_20</incoming>
+			<outgoing>sequenceflow_21</outgoing>
+		</task>
+		<task id="task_22" name="Verify Income">
+			<incoming>sequenceflow_23</incoming>
+			<outgoing>sequenceflow_24</outgoing>
+		</task>
+		<exclusiveGateway id="exclusivegateway_25">
+			<incoming>sequenceflow_28</incoming>
+			<outgoing>sequenceflow_29</outgoing>
+		</exclusiveGateway>
+		<task id="task_26" name="Interview">
+			<incoming>sequenceflow_27</incoming>
+			<outgoing>sequenceflow_28</outgoing>
+		</task>
+		<task id="task_30" name="Revise">
+			<incoming>sequenceflow_31</incoming>
+			<outgoing>sequenceflow_32</outgoing>
+		</task>
+		<exclusiveGateway id="exclusivegateway_33">
+			<incoming>sequenceflow_34</incoming>
+			<outgoing>sequenceflow_35</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_36">
+			<incoming>sequenceflow_40</incoming>
+			<outgoing>sequenceflow_47</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_37">
+			<incoming>sequenceflow_39</incoming>
+			<outgoing>sequenceflow_42</outgoing>
+			<outgoing>sequenceflow_45</outgoing>
+		</exclusiveGateway>
+		<exclusiveGateway id="exclusivegateway_38">
+			<incoming>sequenceflow_43</incoming>
+			<incoming>sequenceflow_46</incoming>
+			<outgoing>sequenceflow_40</outgoing>
+		</exclusiveGateway>
+		<task id="task_41" name="Approve">
+			<incoming>sequenceflow_42</incoming>
+			<outgoing>sequenceflow_43</outgoing>
+		</task>
+		<task id="task_44" name="Reject">
+			<incoming>sequenceflow_45</incoming>
+			<outgoing>sequenceflow_46</outgoing>
+		</task>
+		<sequenceFlow id="sequenceflow_6" sourceRef="startevent_2" targetRef="task_5">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_7" sourceRef="task_5" targetRef="exclusivegateway_4">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_12" sourceRef="exclusivegateway_4" targetRef="exclusivegateway_10">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_13" sourceRef="exclusivegateway_11" targetRef="exclusivegateway_9">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_17" sourceRef="exclusivegateway_10" targetRef="parallelgateway_15">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_18" sourceRef="parallelgateway_16" targetRef="exclusivegateway_14">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_20" sourceRef="parallelgateway_15" targetRef="task_19">
+			<sbpmn:weight constant="111/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_21" sourceRef="task_19" targetRef="parallelgateway_16">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_23" sourceRef="parallelgateway_15" targetRef="task_22">
+			<sbpmn:weight constant="111/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_24" sourceRef="task_22" targetRef="parallelgateway_16">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_27" sourceRef="exclusivegateway_14" targetRef="task_26">
+			<sbpmn:weight constant="111/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_28" sourceRef="task_26" targetRef="exclusivegateway_25">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_29" sourceRef="exclusivegateway_25" targetRef="exclusivegateway_11">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_31" sourceRef="exclusivegateway_11" targetRef="task_30">
+			<sbpmn:weight constant="11/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_32" sourceRef="task_30" targetRef="exclusivegateway_10">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_34" sourceRef="exclusivegateway_9" targetRef="exclusivegateway_33">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_35" sourceRef="exclusivegateway_33" targetRef="exclusivegateway_8">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_39" sourceRef="exclusivegateway_8" targetRef="exclusivegateway_37">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_40" sourceRef="exclusivegateway_38" targetRef="exclusivegateway_36">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_42" sourceRef="exclusivegateway_37" targetRef="task_41">
+			<sbpmn:weight constant="67/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_43" sourceRef="task_41" targetRef="exclusivegateway_38">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_45" sourceRef="exclusivegateway_37" targetRef="task_44">
+			<sbpmn:weight constant="33/100"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_46" sourceRef="task_44" targetRef="exclusivegateway_38">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+		<sequenceFlow id="sequenceflow_47" sourceRef="exclusivegateway_36" targetRef="startevent_3">
+			<sbpmn:weight constant="1"/>
+		</sequenceFlow>
+	</process>
+</definitions>

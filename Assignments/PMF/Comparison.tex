@@ -52,9 +52,9 @@ timestamp uncertainty---via optimal transport over PO traces; abstract-and-compa
 projects both log and model onto subtrace-frequency statistics and then applies
 any existing measure, buying partial-mismatch robustness and model-class
 breadth; Enjoy the Silence keeps total orders but, via an absorbing Markov
-chain, computes their probabilities exactly, dissolving the silent-transition
-and loop/infinite-path mass that the other two remove during play-out or only
-approximate. The contrast is the greatest on loops: PO-EMSC truncates the play-out
+chain, computes their probabilities exactly, introducing an approach where silent-transition
+and loop/infinite-path mass is dissolved, which the other two consider by removing them during play-out or only
+by approximation. The contrast is the greatest on loops: PO-EMSC truncates the play-out
 and returns a provable interval, Enjoy the Silence needs no truncation (but
 ignores concurrency), and abstract-and-compare avoids enumeration in closed form
 for livelock-free nets. PO-EMSC's structural requirements are also stronger
@@ -62,5 +62,5 @@ and, unlike the others, left unverified, and it alone consumes log
 \emph{timestamps} rather than control flow. The approaches are therefore
 complementary: Enjoy the Silence's analytic probabilities could replace the
 truncated play-out to dissolve P3's residual mass, while abstract-and-compare's
-abstraction is an orthogonal robustness lever that the exact-match PO distance
+abstraction provides a robust and scalable lever that the exact-match PO distance
 lacks.

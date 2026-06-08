@@ -1,11 +1,13 @@
 \section{An Example Exercising P1, P2, and P3}
 
-The labelled stochastic Petri net in Figure~\ref{fig:petri_net_log} exercises all
-three problems at once: \emph{Verify Credit} (VC) and \emph{Verify Income} (VI)
+Consider a simple loan application process, which starts with applying for a loan and ends with either rejection or approval.
+For this process, I have created a synthetic event log $L_1$~(Table~\ref{tab:logs}) and a perfectly fitting Petri net model (Figure~\ref{fig:petri_net_log}).
+The labelled stochastic Petri net in Figure~\ref{fig:petri_net_log} captures all
+three problems: \emph{Verify Credit} (VC) and \emph{Verify Income} (VI)
 are concurrent (\textbf{P2}), the \emph{Revise} (Rv) loop admits runs of unbounded
 length (\textbf{P3}), and in the log the two verifications share a timestamp, so
 their order is uncertain (\textbf{P1}). The net is sound, safe, and
-confusion-free, as the technique requires.
+confusion-free, as the technique demands. The stochastics were not included in the figure, but considered in the evaluation of the method, where the model's stochastic PO language $L_M$ is discovered from the original log $L_1$ and compared to the original log and two further logs with different frequency distributions.
 
 \begin{figure}[h]
     \centering
@@ -15,10 +17,10 @@ confusion-free, as the technique requires.
 \end{figure}
 
 The model's stochastic PO language $L_M$ is discovered from the original log
-$L_1$, so it matches $L_1$ by construction. We compare it against $L_1$ and two
+$L_1$, so it matches $L_1$ by construction. The earth mover's stochastic conformance (EMSC) distance calculation will be executed against $L_1$ and two
 further logs over the \emph{same nine variants} but with different frequency
 distributions: a variation log $L_2$ and a strongly loop-biased log $L_3$
-(Table~\ref{tab:logs}). Under the concurrency of VC and VI the two interleavings
+(Table~\ref{tab:logs}). Through the concurrency of VC and VI the two interleavings
 are linearisations of one PO trace, so the nine variants collapse into the five
 PO traces $\rho_1,\dots,\rho_5$, on which $L_1$ places mass $(60,30,6,3,1)$,
 $L_2$ places $(55,20,11,10,4)$, and $L_3$ places $(4,30,58,3,5)$. While $L_2$
@@ -53,13 +55,13 @@ VI = Verify Income, I = Interview, Rv = Revise, Ap = Approve, R = Reject.}
 \label{tab:logs}
 \end{table}
 
-Using the \href{https://leemans.ch/ebi/index.php}{Ebi} CLI, I sampled the model's
+Using the \href{https://leemans.ch/ebi/index.php}{Ebi} CLI, I have sampled the model's
 partially ordered traces (\texttt{ebi sample partially-ordered-traces}, $1000$
-runs) and computed EMSC against each log. $L_1$ scored $0.996$; the missing
+runs) and computed EMSC against each log under the uncertain interpretation. $L_1$ scored $0.996$; the missing
 $0.004$ is the residual mass $L_M(\bot)$ left by truncating the loop
 (\textbf{P3}). $L_2$ scored $0.926$ and $L_3$ only $0.744$, since the transport
-must move their loop-heavy mass onto the short traces $L_M$ favours: the more a
-log departs from $L_M$, the more mass travels at a positive PO-trace distance.
+must move the loop-heavy masses onto the short traces $L_M$ favours: the more a
+log deviates from $L_M$, the more mass travels at a positive PO-trace distance.
 The ordering $\mathrm{emsc}(L_M, L_3) = 0.744 < 0.926 = \mathrm{emsc}(L_M, L_2) <
 0.996 = \mathrm{emsc}(L_M, L_1)$ confirms that $L_3$ is stochastically furthest
 from the model.

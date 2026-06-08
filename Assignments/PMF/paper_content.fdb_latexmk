@@ -1,7 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1780469876.23403 "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" "paper_content.pdf" "paper_content" 1780469877.09031 0
+["pdflatex"] 1780925683.63714 "paper_content.tex" "paper_content.pdf" "paper_content" 1780925684.5568 0
   "../PMF/pics/log_petri_net.png" 1779710010.31553 125241 d9c2a0142a9998b46c33e5efaac7af5c ""
-  "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" 1780469875.03626 10393 fb9bc3bf04d317074caa3f61c9234591 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -199,11 +198,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762501387 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762501305 3345741 11c24886f3ddd1a9b97ad1a1ef8d7eb4 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "comparison.tex" 1779778786.86535 3515 de15ecc665a7a1770d4e1aad0d575dd4 ""
-  "example.tex" 1779777998.45983 3900 d04fdefbfd6f2acafe0b456ffceee7f8 ""
-  "paper_content.aux" 1780469876.96177 2982 2629583909f254595da697ebf78fd1c1 "pdflatex"
-  "paper_content.out" 1780469876.96225 356 52a8cb56bc35ca4ebfeb04a1a548c543 "pdflatex"
-  "paper_content.tex" 1780469875.03626 10393 fb9bc3bf04d317074caa3f61c9234591 ""
+  "comparison.tex" 1780925653.42214 3572 9ad7d11b03e9be56f06b4c7635ad6b24 ""
+  "example.tex" 1780925670.24808 4568 269b3464e1d9c330b001a8c577be2104 ""
+  "paper_content.aux" 1780925684.39681 2982 a8d6cf569f44b0d47c17d6841013bfbf "pdflatex"
+  "paper_content.out" 1780925684.39731 356 52a8cb56bc35ca4ebfeb04a1a548c543 "pdflatex"
+  "paper_content.tex" 1780925643.43964 10530 c9f8efced4d48b7ddc84371f868fe49f ""
   (generated)
   "paper_content.aux"
   "paper_content.log"

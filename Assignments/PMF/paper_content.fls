@@ -2,7 +2,7 @@ PWD /Users/bojack/Documents/Projects/Assignments/PMF
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT paper_content.tex
+INPUT /Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex
 OUTPUT paper_content.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/llncs/llncs.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/llncs/llncs.cls

@@ -1,6 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1780925683.63714 "paper_content.tex" "paper_content.pdf" "paper_content" 1780925684.5568 0
+["pdflatex"] 1781439663.09975 "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" "paper_content.pdf" "paper_content" 1781439663.96367 0
   "../PMF/pics/log_petri_net.png" 1779710010.31553 125241 d9c2a0142a9998b46c33e5efaac7af5c ""
+  "/Users/bojack/Documents/Projects/Assignments/PMF/paper_content.tex" 1780925819.90232 10492 043aa76acafaa0fe22955e25828f937c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -200,9 +201,9 @@
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "comparison.tex" 1780925653.42214 3572 9ad7d11b03e9be56f06b4c7635ad6b24 ""
   "example.tex" 1780925670.24808 4568 269b3464e1d9c330b001a8c577be2104 ""
-  "paper_content.aux" 1780925684.39681 2982 a8d6cf569f44b0d47c17d6841013bfbf "pdflatex"
-  "paper_content.out" 1780925684.39731 356 52a8cb56bc35ca4ebfeb04a1a548c543 "pdflatex"
-  "paper_content.tex" 1780925643.43964 10530 c9f8efced4d48b7ddc84371f868fe49f ""
+  "paper_content.aux" 1781439663.83356 2743 d86e1a29fcd1234b9546e49734d3f668 "pdflatex"
+  "paper_content.out" 1781439663.83421 356 52a8cb56bc35ca4ebfeb04a1a548c543 "pdflatex"
+  "paper_content.tex" 1780925819.90232 10492 043aa76acafaa0fe22955e25828f937c ""
   (generated)
   "paper_content.aux"
   "paper_content.log"
